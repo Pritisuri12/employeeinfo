@@ -19,8 +19,7 @@ public class loginTestStep {
     @Before
     public void before() {
         base.setup();
-     }
-
+    }
 
     @Given("^that I want to login as employee$")
     public void i_want_to_login_an_employee() {
@@ -48,14 +47,16 @@ public class loginTestStep {
         String title = base.getDriver().getTitle();
         Assert.assertEquals(title, "CafeTownsend-AngularJS-Rails");
     }
-    @After
-    public void after(){
-        base.getDriver().close();
-    }
-    @cucumber.api.java.After
 
-    public void afterScenario(Scenario scenario) {
-        this.closeBrowser();
+    @Then("^I should get warning message$")
+    public void i_should_get_warning_message() {
+        String text= String.valueOf(base.getDriver().findElement(By.className("error-message ng-binding")));
+        Assert.assertEquals(text,"Invalid username or password!");
+    }
+
+    @After
+    public void after() {
+        base.getDriver().close();
     }
 
 
