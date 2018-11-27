@@ -67,7 +67,7 @@ public class EditTestSteps {
     @Then("^information of employee is saved")
     public void information_of_employee_is_saved()
     {
-        base.getDriver().findElements(By.ByName);
-        Assert.assertEquals();
+       // base.getDriver().findElements(By.ByName);
+        //Assert.assertEquals();
     }
 }
