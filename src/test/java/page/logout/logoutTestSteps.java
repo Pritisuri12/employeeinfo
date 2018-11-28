@@ -27,20 +27,21 @@ public class logoutTestSteps {
 
     @Given("^I am able to see the logout button$")
     public void i_am_able_to_see_the_logout_button() {
-        base.getDriver().findElement(By.linkText("Logout"));
+        WebElement ClickButton =base.getDriver().findElement(By.className("main-button"));
+        ClickButton.click();
     }
 
     @When("^I click on logout button$")
-    public void i_click_on_logout_button()
-    {
-        WebElement ClickButton = base.getDriver().findElement(By.xpath(logout_button));
+    public void i_click_on_logout_button() {
+        WebElement ClickButton = base.getDriver().findElement(By.cssSelector("body > div > header > div > p.main-button"));
+               // className("main-button"));
         ClickButton.click();
+
     }
 
 
     @Then("^I am logged out$")
-    public void i_am_logged_out()
-    {
+    public void i_am_logged_out() {
         String url= base.getDriver().getCurrentUrl();
         System.out.println(url);
         Assert.assertEquals(url,"http://cafetownsend-angular-rails.herokuapp.com/login");

@@ -71,11 +71,16 @@ public class InsertTestSteps {
 
     }
 
-    @Then("^the click on add button$")
+    @When("^I click on add button$")
     public void the_click_on_add_button() {
         WebElement ClickButton = base.getDriver().findElement(By.className(add_button));
         ClickButton.click();
 
+
+    }
+    @Then("^the new employee is added in the list$")
+    public void the_new_employee_is_added_in_the_list()
+    {
 
     }
 }

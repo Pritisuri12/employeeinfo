@@ -19,7 +19,6 @@ public class BaseTestSteps {
 
     public void setup() {
         System.setProperty("webdriver.chrome.driver", getClass().getClassLoader().getResource("driver/mac/chromedriver").getPath());
-       // System.setProperty("webdriver.chrome.driver", "/Users/pritisuri/qa-framework/framework/drivers/2.29-win64/chromedriver");
         driver = new ChromeDriver();
         driver.get(Constants.baseUrl);
         driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);

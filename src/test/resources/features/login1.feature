@@ -1,12 +1,12 @@
 @login @positivelogin
 Feature: As a employee want to login in the application
 
-  Scenario:Able to login in the web page
-    Given that I want to login as employee
-    When I enter the user name "Luke"
-    And password value "Skywalker"
-    And click on login button
-    Then I should be able to login
+# Scenario:Able to login in the web page
+#    Given that I want to login as employee
+#    When I enter the user name "Luke"
+#    And password value "Skywalker"
+#    And click on login button
+#    Then I should be able to login
 
   @negativecase
   Scenario: login with wrong username or password

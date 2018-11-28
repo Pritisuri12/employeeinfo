@@ -50,10 +50,12 @@ public class loginTestStep {
 
     @Then("^I should get warning message$")
     public void i_should_get_warning_message() {
-        String text = base.getDriver().findElement(By.xpath("//*[@id=\"login-form\"]/fieldset/p[1]")).getText();
+
+
+        String text = base.getDriver().findElement(By.cssSelector(".login-form > fieldset > p.error-message.ng-binding")).getText();
         System.out.print(text +" hello");
        // Assert.assertEquals("Invalid username or password!", text);
-        
+
     }
 
     public void after() {

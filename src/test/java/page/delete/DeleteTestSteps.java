@@ -14,7 +14,7 @@ public class DeleteTestSteps {
     BaseTestSteps base = new BaseTestSteps();
     public String first_element_of_list = "//*[@id=\"employee-list\"]/li[1]";
 
-    public String delete_button="//*[@id=\"bDelete\"]";
+    public String delete_button="bDelete";
 
     @Before
     public void before() {
@@ -44,7 +44,7 @@ public class DeleteTestSteps {
 
     @When("^I click on delete button$")
     public void i_click_on_delete_button() {
-        WebElement ClickButton = base.getDriver().findElement(By.xpath(delete_button));
+        WebElement ClickButton = base.getDriver().findElement(By.id(delete_button));
         ClickButton.click();
 
     }
