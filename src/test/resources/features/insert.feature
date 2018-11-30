@@ -22,4 +22,4 @@ Feature: Employee can be added in the list
       And entered start date "2018-08-10"
       And entered email id "abc@testqa.com"
       When I click on add button
-      Then the new employee is added in the list
+      Then the tooltip came shows

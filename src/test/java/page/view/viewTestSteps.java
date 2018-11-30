@@ -1,11 +1,11 @@
 package page.view;
 
 import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import page.base.BaseTestSteps;
@@ -47,6 +47,6 @@ public class viewTestSteps {
 
     @After
     public void after() {
-        base.teardown();
+        base.getDriver().close();
     }
 }

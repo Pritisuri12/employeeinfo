@@ -5,19 +5,26 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import page.base.BaseTestSteps;
-import page.base.Constants;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class EditTestSteps {
     public String first_element_of_list = "//*[@id=\"employee-list\"]/li[1]";
     public String empStartDate = "/html/body/div/div/div/form/fieldset/label[3]/input";
     public String edit_button_id = "bEdit";
-    public String empFirstName = "/html/body/div/div/div/form/fieldset/label[1]/input";
+    public String empFirstName = "body > div > div > div > form > fieldset > label:nth-child(3) > input";
+    public String empLastName="body > div > div > div > form > fieldset > label:nth-child(4) > input";
     public String update_button = " main-button";
     BaseTestSteps base = new BaseTestSteps();
+    public String fName;
+    public  String lName;
+    public  String nameText;
 
     @Before
     public void before() {
@@ -47,12 +54,17 @@ public class EditTestSteps {
     }
 
     @Given("^able to add sur name \"([^\"]*)\"$")
-    public void able_to_add_sar_name_of_that_employee(String empName) {
-        base.getDriver().findElement(By.xpath(empFirstName)).sendKeys(empName);
+    public void able_to_add_sur_name_of_that_employee(String empName) {
+       base.getDriver().findElements(By.cssSelector(empFirstName)).clear();
+        base.getDriver().findElement(By.cssSelector(empFirstName)).sendKeys(empName);
+        fName=empName;
+        lName=base.getDriver().findElement(By.cssSelector(empLastName)).getText();
     }
 
-    @Given("able to add date \"([^\"]*)\"$")
+
+   @Given("able to add new date \"([^\"]*)\"$")
     public void able_to_add_date(String date) {
+        base.getDriver().findElement(By.xpath(empStartDate)).clear();
         base.getDriver().findElement(By.xpath(empStartDate)).sendKeys(date);
     }
 
@@ -64,16 +76,30 @@ public class EditTestSteps {
 
     @Then("^information of employee is saved")
     public void information_of_employee_is_saved() {
+        base.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        List<WebElement> e = base.getDriver().findElements(By.id("employee-list"));
+        int itemCount = e.size();
+        for (int l = 0; l < itemCount; l++) {
+            System.out.println(e.get(l).getText());
 
+            Assert.assertEquals(nameText = fName + lName, e.get(l).getText());
+        }
     }
 
-  /* @After
-   // public void after() {
-    //    driver.quit();
-    */
 
-    // @Then("^I will get warning message")
-    // public void i_will_get_warning_message() {
+     @Then("^I will get warning message")
+     public void i_will_get_warning_message() {
+         String github = base.getDriver().findElement(By.xpath("/html/body/div/div/div/form/fieldset/label[1]/input")).getAttribute("title");
 
-    //}
+         //get the value of the "title" attribute of the github icon
+        // String actualTooltip = github.getAttribute("title");
+         //Assert the tooltip's value is as expected
+         System.out.println(github);
+
+     }
+    @After
+    public void after() {
+        base.getDriver().close();
+    }
+
 }

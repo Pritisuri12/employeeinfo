@@ -1,5 +1,6 @@
 package page.delete;
 
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -38,7 +39,6 @@ public class DeleteTestSteps {
         Actions action = new Actions(base.getDriver());
         action.moveToElement(base.getDriver().findElement(By.xpath(first_element_of_list))).click().build().perform();
            nameText= base.getDriver().findElement(By.xpath(first_element_of_list)).getText();
-        //System.out.println(c1);
 
     }
 
@@ -56,11 +56,15 @@ public class DeleteTestSteps {
     }
 
     @Then("^it shows warning message$")
-    public  void it_shows_warning_message(){
+    public void it_shows_warning_message(){
         base.getDriver().switchTo().alert().accept();
 
     }
 
+    @Then("^delete request can cancelled by click the cancel$")
+    public void delete_request_can_cancelled_click_the_cancel(){
+        base.getDriver().switchTo().alert().dismiss();
+    }
 
     @Then("^the employee name and detail is deleted from the list$")
     public void the_name_and_detail_is_deleted_from_the_list() {
@@ -74,6 +78,10 @@ public class DeleteTestSteps {
         }
         
         
+    }
+    @After
+    public void after() {
+        base.getDriver().close();
     }
 
 }
