@@ -6,7 +6,7 @@ Feature: Delete the selected employee from the list
     And able to see the delete button
     When I click on delete button
     Then it shows warning message
-    Then the employee name and detail is deleted from the list
+    Then accept the alert and detail is deleted from the list
 
     Scenario: Able to cancel the delete of the employee infomation
       Given that I am logged in

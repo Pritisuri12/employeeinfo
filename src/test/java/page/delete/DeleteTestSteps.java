@@ -57,23 +57,31 @@ public class DeleteTestSteps {
 
     @Then("^it shows warning message$")
     public void it_shows_warning_message(){
-        base.getDriver().switchTo().alert().accept();
+        base.getDriver().switchTo().alert();
 
     }
 
     @Then("^delete request can cancelled by click the cancel$")
     public void delete_request_can_cancelled_click_the_cancel(){
         base.getDriver().switchTo().alert().dismiss();
+      /*  List<WebElement> e  = base.getDriver().findElements(By.id("employee-list"));
+        int itemCount = e.size();
+        for(int l = 0; l < itemCount; l++)
+        {
+            //System.out.println(e.get(l).getText());
+            Assert.assertEquals(nameText,e.get(l).getText());
+        }
+*/
     }
 
-    @Then("^the employee name and detail is deleted from the list$")
+    @Then("^accept the alert and detail is deleted from the list$")
     public void the_name_and_detail_is_deleted_from_the_list() {
-
+        base.getDriver().switchTo().alert().accept();
         List<WebElement> e  = base.getDriver().findElements(By.id("employee-list"));
         int itemCount = e.size();
         for(int l = 0; l < itemCount; l++)
         {
-            System.out.println(e.get(l).getText());
+            //System.out.println(e.get(l).getText());
             Assert.assertNotEquals(nameText,e.get(l).getText());
         }
         
