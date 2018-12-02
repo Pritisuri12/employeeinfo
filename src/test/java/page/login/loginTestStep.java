@@ -1,6 +1,5 @@
 package page.login;
 
-import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -9,6 +8,8 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import page.base.BaseTestSteps;
 import page.base.Constants;
 
@@ -50,12 +51,11 @@ public class loginTestStep {
 
     @Then("^I should get warning message$")
     public void i_should_get_warning_message() {
+        WebDriverWait wait=new WebDriverWait(base.getDriver(), 2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#login-form > fieldset > p.error-message.ng-binding")));
 
-
-        String text = base.getDriver().findElement(By.cssSelector(".login-form > fieldset > p.error-message.ng-binding")).getText();
-        System.out.print(text +" hello");
-       // Assert.assertEquals("Invalid username or password!", text);
-
+        String errorMessage = base.getDriver().findElement(By.cssSelector("#login-form > fieldset > p.error-message.ng-binding")).getText();
+        Assert.assertEquals("Invalid username or password!", errorMessage);
     }
 
     @After

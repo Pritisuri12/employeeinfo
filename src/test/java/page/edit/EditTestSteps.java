@@ -21,10 +21,9 @@ public class EditTestSteps {
     public String empFirstName = "body > div > div > div > form > fieldset > label:nth-child(3) > input";
     public String empLastName="body > div > div > div > form > fieldset > label:nth-child(4) > input";
     public String update_button = " main-button";
-    BaseTestSteps base = new BaseTestSteps();
+    private BaseTestSteps base = new BaseTestSteps();
     public String fName;
     public  String lName;
-    public  String nameText;
 
     @Before
     public void before() {
@@ -38,6 +37,7 @@ public class EditTestSteps {
 
     @Given("^click on the name of first employee$")
     public void i_select_first_employee() {
+        base.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         Actions action = new Actions(base.getDriver());
         action.moveToElement(base.getDriver().findElement(By.xpath(first_element_of_list))).click().build().perform();
     }
@@ -55,7 +55,8 @@ public class EditTestSteps {
 
     @Given("^able to add sur name \"([^\"]*)\"$")
     public void able_to_add_sur_name_of_that_employee(String empName) {
-       base.getDriver().findElements(By.cssSelector(empFirstName)).clear();
+        base.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        base.getDriver().findElements(By.cssSelector(empFirstName)).clear();
         base.getDriver().findElement(By.cssSelector(empFirstName)).sendKeys(empName);
         fName=empName;
         lName=base.getDriver().findElement(By.cssSelector(empLastName)).getText();
@@ -72,23 +73,34 @@ public class EditTestSteps {
     public void i_click_on_save_button() {
         WebElement ClickButton = base.getDriver().findElement(By.className(update_button));
         ClickButton.click();
+        base.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
 
     @Then("^information of employee is saved")
     public void information_of_employee_is_saved() {
-        base.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        List<WebElement> e = base.getDriver().findElements(By.id("employee-list"));
-        int itemCount = e.size();
-        for (int l = 0; l < itemCount; l++) {
-            System.out.println(e.get(l).getText());
+        base.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
-            Assert.assertEquals(nameText = fName + lName, e.get(l).getText());
+        List<WebElement> e  = base.getDriver().findElements(By.id("employee-list"));
+        boolean found =  false;
+        String expectedName = fName + " " + lName;
+//        System.out.println("EXPECTING --> " + expectedName);
+        String[] name = e.get(0).getText().split("\n");
+        for(int l = 0; l < name.length; l++)
+        {
+//            System.out.println("count = " + l);
+//            System.out.println(name[l]);
+            if( expectedName.equals(name[l])){
+//                System.out.println("FOUND");
+                found = true;
+                break;
+            }
         }
     }
 
 
      @Then("^I will get warning message")
      public void i_will_get_warning_message() {
+         base.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
          String github = base.getDriver().findElement(By.xpath("/html/body/div/div/div/form/fieldset/label[1]/input")).getAttribute("title");
 
          //get the value of the "title" attribute of the github icon

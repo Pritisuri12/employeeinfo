@@ -1,4 +1,4 @@
-package java1.page.insert;
+package page.insert;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
