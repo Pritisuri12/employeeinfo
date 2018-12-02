@@ -18,7 +18,7 @@ Feature: Edit the information of the employee
     When I click on update button
     Then information of employee is saved
 
-  @negativename
+  @blankname
   Scenario:Enter blank format in the name
     Given that I am logged in
     And click on the name of first employee
@@ -26,5 +26,5 @@ Feature: Edit the information of the employee
     And click on edit button
     And able to add sur name " "
     When I click on update button
-    Then I will get warning message
+
 

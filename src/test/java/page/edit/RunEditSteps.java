@@ -1,4 +1,4 @@
-package java1.page.edit;
+package page.edit;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

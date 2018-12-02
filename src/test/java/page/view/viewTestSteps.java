@@ -6,6 +6,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import page.base.BaseTestSteps;
@@ -34,15 +35,9 @@ public class viewTestSteps {
 
     @Then("^I should be able to see detailed information$")
     public void i_should_be_able_to_see_detailed_information() {
-        String url = base.getDriver().getTitle();
-        System.out.println(url);
+        String url = base.getDriver().getCurrentUrl();
+        Assert.assertEquals(url,"http://cafetownsend-angular-rails.herokuapp.com/employees/30331/edit");
 
-        //Assert.assertEquals(url,"http://cafetownsend-angular-rails.herokuapp.com/employees/30192/edit);");
-
-    }
-
-
-    private void closeBrowser() {
     }
 
     @After

@@ -9,17 +9,17 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 import page.base.BaseTestSteps;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class DeleteTestSteps {
 
     BaseTestSteps base = new BaseTestSteps();
-    public String first_element_of_list = "//*[@id=\"employee-list\"]/li[1]";
+    public String firstElementOfList = "//*[@id=\"employee-list\"]/li[1]";
 
-    public String delete_button="bDelete";
+    public String deleteButton="bDelete";
 
     public String nameText;
 
@@ -37,8 +37,8 @@ public class DeleteTestSteps {
     @Given("^I select first employee$")
     public void i_select_first_employee() {
         Actions action = new Actions(base.getDriver());
-        action.moveToElement(base.getDriver().findElement(By.xpath(first_element_of_list))).click().build().perform();
-           nameText= base.getDriver().findElement(By.xpath(first_element_of_list)).getText();
+        action.moveToElement(base.getDriver().findElement(By.xpath(firstElementOfList))).click().build().perform();
+           nameText= base.getDriver().findElement(By.xpath(firstElementOfList)).getText();
 
     }
 
@@ -50,7 +50,7 @@ public class DeleteTestSteps {
 
     @When("^I click on delete button$")
     public void i_click_on_delete_button() {
-        WebElement ClickButton = base.getDriver().findElement(By.id(delete_button));
+        WebElement ClickButton = base.getDriver().findElement(By.id(deleteButton));
         ClickButton.click();
 
     }
@@ -64,15 +64,10 @@ public class DeleteTestSteps {
     @Then("^delete request can cancelled by click the cancel$")
     public void delete_request_can_cancelled_click_the_cancel(){
         base.getDriver().switchTo().alert().dismiss();
-      /*  List<WebElement> e  = base.getDriver().findElements(By.id("employee-list"));
-        int itemCount = e.size();
-        for(int l = 0; l < itemCount; l++)
-        {
-            //System.out.println(e.get(l).getText());
-            Assert.assertEquals(nameText,e.get(l).getText());
+        base.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            Assert.assertEquals(nameText,base.getDriver().findElement(By.xpath(firstElementOfList)).getText());
         }
-*/
-    }
+
 
     @Then("^accept the alert and detail is deleted from the list$")
     public void the_name_and_detail_is_deleted_from_the_list() {
@@ -81,7 +76,6 @@ public class DeleteTestSteps {
         int itemCount = e.size();
         for(int l = 0; l < itemCount; l++)
         {
-            //System.out.println(e.get(l).getText());
             Assert.assertNotEquals(nameText,e.get(l).getText());
         }
         

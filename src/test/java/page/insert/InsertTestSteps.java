@@ -73,7 +73,6 @@ public class InsertTestSteps {
 
     @When("^I click on add button$")
     public void the_click_on_add_button() {
-       // base.getDriver().submit();
         WebElement ClickButton = base.getDriver().findElement(By.cssSelector("body > div > div > div > form > fieldset > div > button:nth-child(2)"));
         ClickButton.click();
     }
@@ -111,6 +110,12 @@ public class InsertTestSteps {
         }
 
         Assert.assertEquals(found, true);
+    }
+
+    @Then("^the data is not save in the list$")
+    public void the_data_is_not_save_in_the_list()
+    {
+        Assert.assertEquals("http://cafetownsend-angular-rails.herokuapp.com/employees/new",base.getDriver().getCurrentUrl());
     }
 
     @After
