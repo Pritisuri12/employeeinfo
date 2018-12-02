@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import page.base.BaseTestSteps;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -73,32 +75,40 @@ public class EditTestSteps {
     public void i_click_on_save_button() {
         WebElement ClickButton = base.getDriver().findElement(By.className(updateButton));
         ClickButton.click();
-        base.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+       // base.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
 
     @Then("^information of employee is saved")
     public void information_of_employee_is_saved() {
-        base.getDriver().manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        WebDriverWait wait=new WebDriverWait(base.getDriver(), 20);
+        wait.until(ExpectedConditions.visibilityOfAllElements(base.getDriver().findElements(By.id("employee-list"))));
+        //TODO:As the list grew, it is taking time to render the users
+        //I had to add sleep to make sure the page is fully loaded before
+        //I continue.
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<WebElement> e  = base.getDriver().findElements(By.id("employee-list"));
         boolean found =  false;
         String expectedName = fName + " " + lName;
-//        System.out.println("EXPECTING --> " + expectedName);
         String[] name = e.get(0).getText().split("\n");
         for(int l = 0; l < name.length; l++)
         {
-//            System.out.println(name[l]);
             if( expectedName.equals(name[l])){
-//                System.out.println("FOUND");
                 found = true;
                 break;
             }
         }
+
+        Assert.assertEquals(found, true);
     }
 
 
      @Then("^I will get warning message")
      public void i_will_get_warning_message() {
-         base.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+         base.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
          String github = base.getDriver().findElement(By.xpath("/html/body/div/div/div/form/fieldset/label[1]/input")).getAttribute("title");
 
          //TODO:get the value of the "title" attribute of the github icon

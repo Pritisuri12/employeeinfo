@@ -96,14 +96,10 @@ public class InsertTestSteps {
         List<WebElement> e  = base.getDriver().findElements(By.id("employee-list"));
         boolean found =  false;
         String expectedName = fName + " " + lName;
-//        System.out.println("EXPECTING --> " + expectedName);
         String[] name = e.get(0).getText().split("\n");
         for(int l = 0; l < name.length; l++)
         {
-//            System.out.println("count = " + l);
-//            System.out.println(name[l]);
             if( expectedName.equals(name[l])){
-//                System.out.println("FOUND");
                 found = true;
                 break;
             }

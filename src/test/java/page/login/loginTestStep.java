@@ -55,7 +55,6 @@ public class loginTestStep {
     public void i_should_get_warning_message() {
         WebDriverWait wait=new WebDriverWait(base.getDriver(), 2);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#login-form > fieldset > p.error-message.ng-binding")));
-
         String errorMessage = base.getDriver().findElement(By.cssSelector("#login-form > fieldset > p.error-message.ng-binding")).getText();
         Assert.assertEquals("Invalid username or password!", errorMessage);
     }

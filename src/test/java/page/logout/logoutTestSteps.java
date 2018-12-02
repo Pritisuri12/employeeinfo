@@ -27,7 +27,7 @@ public class logoutTestSteps {
 
     @Given("^I am able to see the logout button$")
     public void i_am_able_to_see_the_logout_button() {
-        WebElement ClickButton =base.getDriver().findElement(By.className("main-button"));
+       base.getDriver().findElement(By.className("main-button"));
     }
 
     @When("^I click on logout button$")

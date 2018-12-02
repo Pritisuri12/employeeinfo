@@ -9,6 +9,8 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import page.base.BaseTestSteps;
 
 import java.util.List;
@@ -72,13 +74,29 @@ public class DeleteTestSteps {
     @Then("^accept the alert and detail is deleted from the list$")
     public void the_name_and_detail_is_deleted_from_the_list() {
         base.getDriver().switchTo().alert().accept();
-        List<WebElement> e  = base.getDriver().findElements(By.id("employee-list"));
-        int itemCount = e.size();
-        for(int l = 0; l < itemCount; l++)
-        {
-            Assert.assertNotEquals(nameText,e.get(l).getText());
+        WebDriverWait wait=new WebDriverWait(base.getDriver(), 5);
+        wait.until(ExpectedConditions.visibilityOfAllElements(base.getDriver().findElements(By.id("employee-list"))));
+        //TODO:As the list grew, it is taking time to render the users
+        //I had to add sleep to make sure the page is fully loaded before
+        //I continue.
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        
+        List<WebElement> e  = base.getDriver().findElements(By.id("employee-list"));
+        boolean found =  false;
+        String expectedName = nameText;
+        String[] name = e.get(0).getText().split("\n");
+        for(int l = 0; l < name.length; l++)
+        {
+            if( expectedName.equals(name[l])){
+                found = true;
+                break;
+            }
+        }
+
+        Assert.assertEquals(found, true);
         
     }
     @After
